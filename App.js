@@ -1,13 +1,24 @@
 var app = null;
 
 Ext.define('CustomApp', {
-	extend: 'Rally.app.TimeboxScopedApp',
-    // extend: 'Rally.app.App',
+	// extend: 'Rally.app.TimeboxScopedApp',
+    extend: 'Rally.app.App',
 	componentCls: 'app',
-	scopeType : 'iteration',
-    // launch: function() {
 
-    // },
+	launch : function() {
+		console.log("launch");
+		app = this;
+		var scope = app.getContext().getTimeboxScope();
+		app.reload(scope);
+	},
+
+	onTimeboxScopeChange: function(scope) {
+		this.callParent(arguments);
+		console.log("onScopeChange",scope.type,scope);
+		app = this;
+		this.reload(scope);
+	},
+
 
     reload : function( scope ) {
 		console.log("scope",scope);	
@@ -75,8 +86,8 @@ Ext.define('CustomApp', {
 		this.add(
 			{
 			    xtype: 'component',
+		    	id : 'mylink',
 			    autoEl: {
-			    	id : 'mylink',
 			        tag: 'a',
 			        href: url,
 			        download : "grid.csv",
@@ -121,12 +132,7 @@ Ext.define('CustomApp', {
         app.add(grid);
 	          
     },
-
-	onScopeChange: function(scope) {
-		app = this;
-		this.reload(scope);
-	},
-
+	
 	loadStories : function ( scope, callback ) {
 
 		Ext.create('Rally.data.WsapiDataStore', {
@@ -156,6 +162,7 @@ Ext.define('CustomApp', {
 				'_PreviousValues.ScheduleState' : {"$ne":null}
 			},
 			fetch: ["_ValidFrom","_ValidTo","ScheduleState"],
+			sort : { "_ValidFrom": -1 },
 			hydrate: ['ScheduleState'],
 			autoLoad : true,
 			pageSize:100,
