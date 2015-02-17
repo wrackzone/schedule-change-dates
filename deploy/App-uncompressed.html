@@ -132,11 +132,9 @@ Ext.define('CustomApp', {
 	          
     },
 
-	onTimeboxScopeChange: function(scope) {
+	onScopeChange: function(scope) {
 		app = this;
-    	console.log("Timebox Scope Change",scope);
-		app.reload(scope);
-
+		this.reload(scope);
 	},
 
 	loadStories : function ( scope, callback ) {
