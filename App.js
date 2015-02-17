@@ -2,33 +2,17 @@ var app = null;
 
 Ext.define('CustomApp', {
 	extend: 'Rally.app.TimeboxScopedApp',
-	    // extend: 'Rally.app.App',
-
+    // extend: 'Rally.app.App',
 	componentCls: 'app',
 	scopeType : 'iteration',
+    // launch: function() {
 
-    launch: function() {
-
-    	app = this;
-
-    	var testScope = { 
-    		type : "iteration",
-			record : {
-				data : {
-					Name : "Iteration 4",
-					StartDate : new Date(2015,0,1),
-					EndDate : new Date(2015,0,31)
-				}
-			}
-		};
-
-		var scope = app.getContext().getTimeboxScope()!== undefined  ? app.getContext().getTimeboxScope() : testScope;
-
-		app.reload(scope);
-    },
+    // },
 
     reload : function( scope ) {
 		console.log("scope",scope);	
+
+		this.removeGrid();
 
 		app.loadStories(scope, function(store,records) {
 
@@ -104,16 +88,19 @@ Ext.define('CustomApp', {
 
     },
 
+    removeGrid : function() {
+	    var g = app.down("#mygrid");
+        if (g) {
+            g.destroy();
+        }
+    },
+
     addGrid : function(store) {
         
         var that = this;
         var height = 500;
 
-	    var g = app.down("#mygrid");
-        if (g) {
-            g.destroy();
-        }
-
+        this.removeGrid();
 	    // create the store.
         // this.store = Ext.create('Ext.data.Store', {
         var grid = Ext.create('Rally.ui.grid.Grid', {
@@ -135,14 +122,11 @@ Ext.define('CustomApp', {
 	          
     },
 
-	onTimeboxScopeChange: function(newTimeboxScope) {
+	onTimeboxScopeChange: function(scope) {
+		app = this;
     	console.log("Timebox Scope Change",scope);
 		app.reload(scope);
 
-	},
-    onScopeChange : function( scope ) {
-    	console.log("Scope Change",scope);
-		app.reload(scope);
 	},
 
 	loadStories : function ( scope, callback ) {
