@@ -153,8 +153,6 @@ Ext.define('CustomApp', {
 
 	loadChangeSnapshots : function( request , callback ) {
 
-		// request { fromState, toState, ObjectID }
-
 		var storeConfig = {
 			find : {
 				'ObjectID' : request.story.get("ObjectID"),
