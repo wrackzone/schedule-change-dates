@@ -2,7 +2,9 @@ schedule-change-dates
 =========================
 
 ## Overview
+Provides a grid of stories in an iteration or release showing the dates when the story stated changed.
 
+![screenshot](https://raw.githubusercontent.com/wrackzone/schedule-change-dates/master/screenshot.png)
 
 ## License
 
