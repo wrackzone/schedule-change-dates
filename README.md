@@ -2,7 +2,7 @@ schedule-change-dates
 =========================
 
 ## Overview
-Provides a grid of stories in an iteration or release showing the dates when the story stated changed.
+Provides a grid of stories in an iteration or release showing the dates when the story stated changed. Note this app must be installed in a dashboard page that is Iteration or Release filtered.
 
 ![screenshot](https://raw.githubusercontent.com/wrackzone/schedule-change-dates/master/screenshot.png)
 
